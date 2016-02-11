@@ -1,0 +1,3 @@
+module RomajiCop
+  VERSION = "0.1.0"
+end
