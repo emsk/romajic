@@ -41,7 +41,7 @@ describe RomajiCop::Config do
 
     context 'given invalid config_file_path' do
       subject { lambda { config } }
-      it { is_expected.to raise_error(Errno::ENOENT, "No such file or directory @ rb_sysopen - #{config_file_path}") }
+      it { is_expected.to raise_error(Errno::ENOENT, /No such file or directory( @ rb_sysopen)? - #{config_file_path}/) }
     end
   end
 
