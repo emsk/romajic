@@ -1,5 +1,6 @@
 # RomajiCop
 
+[![Build Status](https://travis-ci.org/emsk/romaji_cop.svg?branch=master)](https://travis-ci.org/emsk/romaji_cop)
 [![Code Climate](https://codeclimate.com/github/emsk/romaji_cop/badges/gpa.svg)](https://codeclimate.com/github/emsk/romaji_cop)
 [![Dependency Status](https://gemnasium.com/emsk/romaji_cop.svg)](https://gemnasium.com/emsk/romaji_cop)
 [![Inline docs](http://inch-ci.org/github/emsk/romaji_cop.svg?branch=master)](http://inch-ci.org/github/emsk/romaji_cop)
