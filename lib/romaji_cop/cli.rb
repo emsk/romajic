@@ -15,6 +15,12 @@ module RomajiCop
       cop = Cop.new(config_file_path)
       cop.search
     end
+
+    desc '-v, --version', 'Print the version'
+    map %w(-v --version) => :version
+    def version
+      puts "romaji_cop #{RomajiCop::VERSION}"
+    end
   end
 
   CLI.start
