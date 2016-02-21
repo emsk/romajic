@@ -2,9 +2,13 @@ require 'thor'
 require 'romaji_cop/cop'
 
 module RomajiCop
+
+  # Command-line interface of {RomajiCop}
   class CLI < Thor
     desc 'search', 'Search romaji'
     option :config
+
+    # Search romaji in the source files
     def search
       if options[:config]
         config_file_path = File.expand_path(options[:config])
@@ -18,6 +22,8 @@ module RomajiCop
 
     desc '-v, --version', 'Print the version'
     map %w(-v --version) => :version
+
+    # Print the version
     def version
       puts "romaji_cop #{RomajiCop::VERSION}"
     end

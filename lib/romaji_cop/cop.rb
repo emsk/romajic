@@ -3,11 +3,18 @@ require 'romaji_cop/config'
 require 'romaji_cop/lexer/JavaLexer'
 
 module RomajiCop
+
+  # Search logic class of {RomajiCop}
   class Cop
+
+    # Initialize a new Cop object
+    #
+    # @param config_file_path [String] Path of the configuration file
     def initialize(config_file_path)
       @config = Config.new(config_file_path)
     end
 
+    # Search romaji in the source files
     def search
       Dir.glob(@config.target_file_pattern).each do |file_path|
         next if FileTest.directory?(file_path)
