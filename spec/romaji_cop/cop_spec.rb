@@ -26,7 +26,7 @@ describe RomajiCop::Cop do
     end
 
     before do
-      expect(config_mock).to receive(:target_name?).with('Identifier').at_least(:once).and_return(true)
+      expect(config_mock).to receive(:target_name?).with('ident').at_least(:once).and_return(true)
       expect(config_mock).to receive(:target_name?).with(anything).at_least(:once).and_return(false)
       expect(RomajiCop::Config).to receive(:new).with(config_file_path).and_return(config_mock)
     end

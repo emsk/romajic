@@ -7,7 +7,6 @@ SimpleCov.formatters = [
 ]
 
 SimpleCov.start do
-  add_filter '/lib/romaji_cop/lexer/'
   add_filter '/spec/'
 end
 

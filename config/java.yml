@@ -3,8 +3,8 @@ extensions:
   - java
 target_words:
 rule_names:
-  - comment
   - class
-  - ident
+  - comment
   - content
+  - ident
 exclusion_words:
