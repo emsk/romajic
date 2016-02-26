@@ -2,7 +2,7 @@ root_dir:
 extensions:
   - java
 target_words:
-rule_names:
+target_kinds:
   - class
   - comment
   - content

@@ -6,14 +6,14 @@ describe RomajiCop::Config do
   let(:config) { described_class.new(config_file_path) }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
-  let(:rule_names) { %w(Identifier COMMENT) }
+  let(:target_kinds) { %w(ident comment) }
   let(:exclusion_words) { %w(class const) }
   let(:target_words) { %w(ikkonzome matcha) }
   let(:config_hash) do
     {
       'root_dir'        => root_dir,
       'extensions'      => extensions,
-      'rule_names'      => rule_names,
+      'target_kinds'    => target_kinds,
       'exclusion_words' => exclusion_words,
       'target_words'    => target_words,
     }
@@ -28,14 +28,14 @@ describe RomajiCop::Config do
       subject { config }
 
       it { is_expected.to be_a described_class }
-      it { is_expected.to respond_to(:rule_names) }
-      it { is_expected.not_to respond_to(:rule_names=) }
+      it { is_expected.to respond_to(:target_kinds) }
+      it { is_expected.not_to respond_to(:target_kinds=) }
       it { is_expected.to respond_to(:exclusion_words) }
       it { is_expected.not_to respond_to(:exclusion_words=) }
       it { is_expected.to respond_to(:target_words) }
       it { is_expected.not_to respond_to(:target_words=) }
       it { is_expected.to respond_to(:target_file_pattern) }
-      it { is_expected.to respond_to(:target_name?) }
+      it { is_expected.to respond_to(:target_kind?) }
       it { is_expected.to respond_to(:exclusion_word?) }
     end
 
@@ -45,19 +45,19 @@ describe RomajiCop::Config do
     end
   end
 
-  describe '#rule_names' do
+  describe '#target_kinds' do
     before do
       allow(YAML).to receive(:load_file).and_return(config_hash)
     end
 
-    subject { config.rule_names }
+    subject { config.target_kinds }
 
-    context "when configs['rule_names'] is not nil" do
-      it { is_expected.to eq rule_names }
+    context "when configs['target_kinds'] is not nil" do
+      it { is_expected.to eq target_kinds }
     end
 
-    context "when configs['rule_names'] is nil" do
-      let(:rule_names) { nil }
+    context "when configs['target_kinds'] is nil" do
+      let(:target_kinds) { nil }
       it { is_expected.to eq [] }
     end
   end
@@ -136,20 +136,20 @@ describe RomajiCop::Config do
     end
   end
 
-  describe '#target_name?' do
+  describe '#target_kind?' do
     before do
       allow(YAML).to receive(:load_file).and_return(config_hash)
     end
 
-    subject { config.target_name?(word) }
+    subject { config.target_kind?(kind) }
 
-    context 'given target name' do
-      let(:word) { 'Identifier' }
+    context 'given target kind' do
+      let(:kind) { 'ident' }
       it { is_expected.to be_truthy }
     end
 
-    context 'given not target name' do
-      let(:word) { 'DecimalLiteral' }
+    context 'given not target kind' do
+      let(:kind) { 'operator' }
       it { is_expected.to be_falsey }
     end
   end

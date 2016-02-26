@@ -4,7 +4,7 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
-    attr_reader :rule_names, :exclusion_words, :target_words
+    attr_reader :target_kinds, :exclusion_words, :target_words
 
     # Initialize a new Config object
     #
@@ -19,7 +19,7 @@ module RomajiCop
       end
 
       @extensions      = configs['extensions']
-      @rule_names      = configs['rule_names'] || []
+      @target_kinds    = configs['target_kinds'] || []
       @exclusion_words = configs['exclusion_words'] || []
       @target_words    = configs['target_words'] || []
     end
@@ -33,12 +33,12 @@ module RomajiCop
       pattern
     end
 
-    # Check if a name is the target rule name
+    # Check if a kind is the target kind
     #
-    # @param name [String] A name, e.g. Identifier, COMMENT
-    # @return [Boolean] True if a name is the target rule name
-    def target_name?(name)
-      rule_names.include?(name)
+    # @param kind [String] A kind, e.g. ident, comment
+    # @return [Boolean] True if a kind is the target kind
+    def target_kind?(kind)
+      target_kinds.include?(kind)
     end
 
     # Check if a word is the exclusion word

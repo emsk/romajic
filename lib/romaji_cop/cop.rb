@@ -34,10 +34,10 @@ module RomajiCop
 
       tokens.each_slice(2) do |token|
         text = token[0]
-        name = token[1]
+        kind = token[1]
         line_number += text.count("\n") if text.is_a?(String)
 
-        next unless @config.target_name?(name.to_s)
+        next unless @config.target_kind?(kind.to_s)
         next if @config.exclusion_word?(text.to_s)
 
         current_word = strip_text(text.to_s)

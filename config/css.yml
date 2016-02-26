@@ -2,7 +2,7 @@ root_dir:
 extensions:
   - css
 target_words:
-rule_names:
+target_kinds:
   - comment
   - id
   - class
