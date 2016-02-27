@@ -37,6 +37,7 @@ describe RomajiCop::Cop do
 
       it { is_expected.to output(%r(IKONZOME -> #{target_words[0].downcase} @ ./spec/examples/Example1.java:5)).to_stdout }
       it { is_expected.to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example2.java:6)).to_stdout }
+      it { is_expected.to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example3.JAVA:6)).to_stdout }
     end
   end
 end

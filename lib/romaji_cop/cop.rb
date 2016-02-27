@@ -20,10 +20,10 @@ module RomajiCop
 
     # Search romaji in the source files
     def search
-      Dir.glob(@config.target_file_pattern).each do |file_path|
+      Dir.glob(@config.target_file_pattern, File::FNM_CASEFOLD).each do |file_path|
         next if FileTest.directory?(file_path)
 
-        extension = File.extname(file_path).sub(/^./, '')
+        extension = File.extname(file_path).sub(/^./, '').downcase
 
         next if extension.empty?
 
