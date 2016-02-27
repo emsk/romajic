@@ -1,5 +1,4 @@
 root_dir:
 extensions:
-  - java
 target_words:
 exclusion_words:
