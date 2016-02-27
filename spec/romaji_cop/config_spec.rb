@@ -6,14 +6,12 @@ describe RomajiCop::Config do
   let(:config) { described_class.new(config_file_path) }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
-  let(:target_kinds) { %w(ident comment) }
   let(:exclusion_words) { %w(class const) }
   let(:target_words) { %w(ikkonzome matcha) }
   let(:config_hash) do
     {
       'root_dir'        => root_dir,
       'extensions'      => extensions,
-      'target_kinds'    => target_kinds,
       'exclusion_words' => exclusion_words,
       'target_words'    => target_words,
     }
@@ -28,37 +26,17 @@ describe RomajiCop::Config do
       subject { config }
 
       it { is_expected.to be_a described_class }
-      it { is_expected.to respond_to(:target_kinds) }
-      it { is_expected.not_to respond_to(:target_kinds=) }
       it { is_expected.to respond_to(:exclusion_words) }
       it { is_expected.not_to respond_to(:exclusion_words=) }
       it { is_expected.to respond_to(:target_words) }
       it { is_expected.not_to respond_to(:target_words=) }
       it { is_expected.to respond_to(:target_file_pattern) }
-      it { is_expected.to respond_to(:target_kind?) }
       it { is_expected.to respond_to(:exclusion_word?) }
     end
 
     context 'given invalid config_file_path' do
       subject { lambda { config } }
       it { is_expected.to raise_error(Errno::ENOENT, /No such file or directory( @ rb_sysopen)? - #{config_file_path}/) }
-    end
-  end
-
-  describe '#target_kinds' do
-    before do
-      allow(YAML).to receive(:load_file).and_return(config_hash)
-    end
-
-    subject { config.target_kinds }
-
-    context "when configs['target_kinds'] is not nil" do
-      it { is_expected.to eq target_kinds }
-    end
-
-    context "when configs['target_kinds'] is nil" do
-      let(:target_kinds) { nil }
-      it { is_expected.to eq [] }
     end
   end
 
@@ -133,24 +111,6 @@ describe RomajiCop::Config do
       end
 
       it { is_expected.to eq "#{expanded_path}/**/*" }
-    end
-  end
-
-  describe '#target_kind?' do
-    before do
-      allow(YAML).to receive(:load_file).and_return(config_hash)
-    end
-
-    subject { config.target_kind?(kind) }
-
-    context 'given target kind' do
-      let(:kind) { 'ident' }
-      it { is_expected.to be_truthy }
-    end
-
-    context 'given not target kind' do
-      let(:kind) { 'operator' }
-      it { is_expected.to be_falsey }
     end
   end
 

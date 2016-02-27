@@ -2,9 +2,4 @@ root_dir:
 extensions:
   - css
 target_words:
-target_kinds:
-  - comment
-  - id
-  - class
-  - tag
 exclusion_words:

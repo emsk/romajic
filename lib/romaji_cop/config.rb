@@ -4,7 +4,7 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
-    attr_reader :target_kinds, :exclusion_words, :target_words
+    attr_reader :exclusion_words, :target_words
 
     # Initialize a new Config object
     #
@@ -19,7 +19,6 @@ module RomajiCop
       end
 
       @extensions      = configs['extensions']
-      @target_kinds    = configs['target_kinds'] || []
       @exclusion_words = configs['exclusion_words'] || []
       @target_words    = configs['target_words'] || []
     end
@@ -31,14 +30,6 @@ module RomajiCop
       pattern = "#{@root_dir}/**/*"
       pattern += ".{#{@extensions.join(',')}}" unless @extensions.nil?
       pattern
-    end
-
-    # Check if a kind is the target kind
-    #
-    # @param kind [String] A kind, e.g. ident, comment
-    # @return [Boolean] True if a kind is the target kind
-    def target_kind?(kind)
-      target_kinds.include?(kind)
     end
 
     # Check if a word is the exclusion word

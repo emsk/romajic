@@ -2,9 +2,4 @@ root_dir:
 extensions:
   - java
 target_words:
-target_kinds:
-  - class
-  - comment
-  - content
-  - ident
 exclusion_words:

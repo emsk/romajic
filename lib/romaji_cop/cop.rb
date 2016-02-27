@@ -6,6 +6,10 @@ module RomajiCop
 
   # Search logic class of {RomajiCop}
   class Cop
+    TARGET_KINDS = {
+      css:  %w(class comment id tag),
+      java: %w(class comment content ident)
+    }
 
     # Initialize a new Cop object
     #
@@ -19,8 +23,12 @@ module RomajiCop
       Dir.glob(@config.target_file_pattern).each do |file_path|
         next if FileTest.directory?(file_path)
 
-        extension = File.extname(file_path).sub(/^./, '').to_sym
-        tokens = CodeRay.scan(File.read(file_path), extension).tokens
+        extension = File.extname(file_path).sub(/^./, '')
+
+        next if extension.empty?
+
+        @target_kinds = TARGET_KINDS[extension.to_sym] || []
+        tokens = CodeRay.scan(File.read(file_path), extension.to_sym).tokens
         search_in_tokens(tokens, file_path)
       end
 
@@ -37,7 +45,7 @@ module RomajiCop
         kind = token[1]
         line_number += text.count("\n") if text.is_a?(String)
 
-        next unless @config.target_kind?(kind.to_s)
+        next unless target_kind?(kind.to_s)
         next if @config.exclusion_word?(text.to_s)
 
         current_word = strip_text(text.to_s)
@@ -46,6 +54,10 @@ module RomajiCop
 
         search_in_words(current_word, file_path, line_number)
       end
+    end
+
+    def target_kind?(kind)
+      @target_kinds.include?(kind)
     end
 
     def strip_text(text)
