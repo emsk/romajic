@@ -6,7 +6,7 @@ module RomajiCop
   # Command-line interface of {RomajiCop}
   class CLI < Thor
     desc 'search', 'Search romaji'
-    option :config
+    option :config, banner: 'PATH OF THE CONFIGURATION FILE'
     option :extensions, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
 
     # Search romaji in the source files
