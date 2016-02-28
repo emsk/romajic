@@ -14,7 +14,7 @@ describe RomajiCop::Config do
       'root_dir'        => root_dir,
       'extensions'      => extensions,
       'exclusion_words' => exclusion_words,
-      'target_words'    => target_words,
+      'target_words'    => target_words
     }
   end
 
