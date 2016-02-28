@@ -13,9 +13,11 @@ module RomajiCop
 
     # Initialize a new Cop object
     #
-    # @param config_file_path [String] Path of the configuration file
-    def initialize(config_file_path)
-      @config = Config.new(config_file_path)
+    # @param options [Hash] Initialize options
+    # @option options [String] :config Path of the configuration file
+    # @option options [String] :extensions Comma-separated target extensions
+    def initialize(options)
+      @config = Config.new(options)
     end
 
     # Search romaji in the source files

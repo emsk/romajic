@@ -7,16 +7,21 @@ module RomajiCop
   class CLI < Thor
     desc 'search', 'Search romaji'
     option :config
+    option :extensions, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
 
     # Search romaji in the source files
     def search
+      cop_options = {}
+
       if options[:config]
-        config_file_path = File.expand_path(options[:config])
+        cop_options[:config] = File.expand_path(options[:config])
       else
-        config_file_path = File.expand_path('../../../default.yml', __FILE__)
+        cop_options[:config] = File.expand_path('../../../default.yml', __FILE__)
       end
 
-      cop = Cop.new(config_file_path)
+      cop_options[:extensions] = options[:extensions] if options[:extensions]
+
+      cop = Cop.new(cop_options)
       cop.search
     end
 

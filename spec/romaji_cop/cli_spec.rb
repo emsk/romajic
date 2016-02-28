@@ -7,11 +7,12 @@ describe RomajiCop::CLI do
     let(:cop_mock) { instance_double('cop', search: nil) }
 
     before do
-      expect(RomajiCop::Cop).to receive(:new).with(config_file_path).and_return(cop_mock)
+      expect(RomajiCop::Cop).to receive(:new).with(options).and_return(cop_mock)
     end
 
     context 'given no options' do
       let(:config_file_path) { '/path/to/default.yml' }
+      let(:options) { { config: config_file_path } }
 
       before do
         expect(File).to receive(:expand_path).with('../../../default.yml', anything).and_return(config_file_path)
@@ -22,9 +23,21 @@ describe RomajiCop::CLI do
     end
 
     context 'given --config option' do
-      let(:config_file_path) { '/path/to/config.yml' }
+      let(:options) { { config: '/path/to/config.yml' } }
 
-      subject { lambda { cli.invoke(:search, [], { config: config_file_path }) } }
+      subject { lambda { cli.invoke(:search, [], options) } }
+      it { is_expected.not_to output.to_stdout }
+    end
+
+    context 'given --extensions option' do
+      let(:options) do
+        {
+          config: '/path/to/config.yml',
+          extensions: 'css,java'
+        }
+      end
+
+      subject { lambda { cli.invoke(:search, [], options) } }
       it { is_expected.not_to output.to_stdout }
     end
   end

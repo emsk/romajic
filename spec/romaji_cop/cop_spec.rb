@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe RomajiCop::Cop do
-  let(:config_file_path) { '/path/to/config.yml' }
-  let(:cop) { described_class.new(config_file_path) }
+  let(:options) do
+    {
+      config: '/path/to/config.yml',
+      extensions: 'css,java'
+    }
+  end
+
+  let(:cop) { described_class.new(options) }
 
   describe '.new' do
     before do
-      expect(RomajiCop::Config).to receive(:new).with(config_file_path)
+      expect(RomajiCop::Config).to receive(:new).with(options)
     end
 
     subject { cop }
@@ -26,7 +32,7 @@ describe RomajiCop::Cop do
     end
 
     before do
-      expect(RomajiCop::Config).to receive(:new).with(config_file_path).and_return(config_mock)
+      expect(RomajiCop::Config).to receive(:new).with(options).and_return(config_mock)
     end
 
     subject { cop.search }

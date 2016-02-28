@@ -3,7 +3,8 @@ require 'spec_helper'
 describe RomajiCop::Config do
   let(:config_dir_path) { '/path/to' }
   let(:config_file_path) { "#{config_dir_path}/config.yml" }
-  let(:config) { described_class.new(config_file_path) }
+  let(:options) { { config: config_file_path } }
+  let(:config) { described_class.new(options) }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
   let(:exclusion_words) { %w(class const) }
@@ -81,36 +82,57 @@ describe RomajiCop::Config do
 
     subject { config.target_file_pattern }
 
-    context "when configs['root_dir'] is not nil and @extensions is not nil" do
-      let(:expanded_path) { '/path/to/expand/dir' }
+    context "when options['extensions'] is nil" do
+      context "when configs['root_dir'] is not nil and configs['extensions'] is not nil" do
+        let(:expanded_path) { '/path/to/expand/dir' }
 
-      before do
-        expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+        before do
+          expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+        end
+
+        it { is_expected.to eq "#{expanded_path}/**/*.{#{extensions.join(',')}}" }
       end
 
-      it { is_expected.to eq "#{expanded_path}/**/*.{#{extensions.join(',')}}" }
+      context "when configs['root_dir'] is nil and configs['extensions'] is not nil" do
+        let(:root_dir) { nil }
+        let(:expanded_path) { '/path/to/run/dir' }
+
+        before do
+          expect(File).to receive(:expand_path).with('.').and_return(expanded_path)
+        end
+
+        it { is_expected.to eq "#{expanded_path}/**/*.{#{extensions.join(',')}}" }
+      end
+
+      context "when configs['root_dir'] is not nil and configs['extensions'] is nil" do
+        let(:extensions) { nil }
+        let(:expanded_path) { '/path/to/expand/dir' }
+
+        before do
+          expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+        end
+
+        it { is_expected.to eq "#{expanded_path}/**/*" }
+      end
     end
 
-    context "when configs['root_dir'] is nil and @extensions is not nil" do
-      let(:root_dir) { nil }
-      let(:expanded_path) { '/path/to/run/dir' }
+    context "when options['extensions'] is not nil" do
+      context "when configs['extensions'] is not nil" do
+        let(:expanded_path) { '/path/to/expand/dir' }
+        let(:option_extensions) { 'css,js' }
+        let(:options) do
+          {
+            config: config_file_path,
+            extensions: option_extensions
+          }
+        end
 
-      before do
-        expect(File).to receive(:expand_path).with('.').and_return(expanded_path)
+        before do
+          expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+        end
+
+        it { is_expected.to eq "#{expanded_path}/**/*.{#{option_extensions}}" }
       end
-
-      it { is_expected.to eq "#{expanded_path}/**/*.{#{extensions.join(',')}}" }
-    end
-
-    context "when configs['root_dir'] is not nil and @extensions is nil" do
-      let(:extensions) { nil }
-      let(:expanded_path) { '/path/to/expand/dir' }
-
-      before do
-        expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
-      end
-
-      it { is_expected.to eq "#{expanded_path}/**/*" }
     end
   end
 
