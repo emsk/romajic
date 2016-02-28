@@ -7,6 +7,7 @@ module RomajiCop
   class CLI < Thor
     desc 'search', 'Search romaji'
     option :config, banner: 'PATH OF THE CONFIGURATION FILE'
+    option :dir, banner: 'PATH OF TARGET DIRECTORY'
     option :extensions, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
 
     # Search romaji in the source files
@@ -20,6 +21,7 @@ module RomajiCop
       end
 
       cop_options[:extensions] = options[:extensions] if options[:extensions]
+      cop_options[:dir] = options[:dir] if options[:dir]
 
       cop = Cop.new(cop_options)
       cop.search

@@ -4,6 +4,7 @@ describe RomajiCop::Cop do
   let(:options) do
     {
       config: '/path/to/config.yml',
+      dir: '/path/to/dir',
       extensions: 'css,java'
     }
   end

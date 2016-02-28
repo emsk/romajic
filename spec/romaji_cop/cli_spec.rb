@@ -29,6 +29,18 @@ describe RomajiCop::CLI do
       it { is_expected.not_to output.to_stdout }
     end
 
+    context 'given --dir option' do
+      let(:options) do
+        {
+          config: '/path/to/config.yml',
+          dir: '/path/to/dir'
+        }
+      end
+
+      subject { lambda { cli.invoke(:search, [], options) } }
+      it { is_expected.not_to output.to_stdout }
+    end
+
     context 'given --extensions option' do
       let(:options) do
         {

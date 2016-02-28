@@ -10,14 +10,19 @@ module RomajiCop
     #
     # @param options [Hash] Initialize options
     # @option options [String] :config Path of the configuration file
+    # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     def initialize(options)
       configs = get_configs_from_file(options[:config])
 
-      if configs[:root_dir]
-        @root_dir = File.expand_path(configs[:root_dir], File.dirname(options[:config]))
+      if options[:dir]
+        @root_dir = File.expand_path(options[:dir])
       else
-        @root_dir = File.expand_path('.')
+        if configs[:root_dir]
+          @root_dir = File.expand_path(configs[:root_dir], File.dirname(options[:config]))
+        else
+          @root_dir = File.expand_path('.')
+        end
       end
 
       if options[:extensions]
