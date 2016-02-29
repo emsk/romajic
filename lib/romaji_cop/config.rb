@@ -4,16 +4,23 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
-    attr_reader :exclusion_words, :target_words
+    attr_reader :target_words, :exclusion_words
 
     # Initialize a new Config object
     #
     # @param options [Hash] Initialize options
+    # @option options [String] :word Target romaji
     # @option options [String] :config Path of the configuration file
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     def initialize(options)
       configs = get_configs_from_file(options[:config])
+
+      if options[:word]
+        @target_words = [options[:word].dup]
+      else
+        @target_words = configs[:target_words] || []
+      end
 
       if options[:dir]
         @root_dir = File.expand_path(options[:dir])
@@ -32,7 +39,6 @@ module RomajiCop
       end
 
       @exclusion_words = configs[:exclusion_words] || []
-      @target_words    = configs[:target_words] || []
     end
 
     # Get the glob pattern of the search target files

@@ -10,6 +10,19 @@ describe RomajiCop::CLI do
       expect(RomajiCop::Cop).to receive(:new).with(options).and_return(cop_mock)
     end
 
+    context 'given word' do
+      let(:word) { 'IKKONZOME' }
+      let(:options) do
+        {
+          word: word,
+          config: '/path/to/config.yml'
+        }
+      end
+
+      subject { lambda { cli.invoke(:search, [word], options) } }
+      it { is_expected.not_to output.to_stdout }
+    end
+
     context 'given no options' do
       let(:config_file_path) { '/path/to/default.yml' }
       let(:options) { { config: config_file_path } }

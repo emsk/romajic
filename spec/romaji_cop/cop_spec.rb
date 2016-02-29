@@ -3,6 +3,7 @@ require 'spec_helper'
 describe RomajiCop::Cop do
   let(:options) do
     {
+      word: 'IKKONZOME',
       config: '/path/to/config.yml',
       dir: '/path/to/dir',
       extensions: 'css,java'

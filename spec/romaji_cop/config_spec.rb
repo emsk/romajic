@@ -41,6 +41,39 @@ describe RomajiCop::Config do
     end
   end
 
+  describe '#target_words' do
+    before do
+      allow(YAML).to receive(:load_file).and_return(config_hash)
+    end
+
+    subject { config.target_words }
+
+    context 'when options[:word] is nil' do
+      context "when configs['target_words'] is not nil" do
+        it { is_expected.to eq target_words }
+      end
+
+      context "when configs['target_words'] is nil" do
+        let(:target_words) { nil }
+        it { is_expected.to eq [] }
+      end
+    end
+
+    context 'when options[:word] is not nil' do
+      context "when configs['target_words'] is not nil" do
+        let(:option_word) { 'IKKONZOME' }
+        let(:options) do
+          {
+            word: option_word,
+            config: config_file_path
+          }
+        end
+
+        it { is_expected.to eq [option_word] }
+      end
+    end
+  end
+
   describe '#exclusion_words' do
     before do
       allow(YAML).to receive(:load_file).and_return(config_hash)
@@ -54,23 +87,6 @@ describe RomajiCop::Config do
 
     context "when configs['exclusion_words'] is nil" do
       let(:exclusion_words) { nil }
-      it { is_expected.to eq [] }
-    end
-  end
-
-  describe '#target_words' do
-    before do
-      allow(YAML).to receive(:load_file).and_return(config_hash)
-    end
-
-    subject { config.target_words }
-
-    context "when configs['target_words'] is not nil" do
-      it { is_expected.to eq target_words }
-    end
-
-    context "when configs['target_words'] is nil" do
-      let(:target_words) { nil }
       it { is_expected.to eq [] }
     end
   end
