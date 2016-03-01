@@ -1,6 +1,7 @@
 require 'thor'
 require 'romaji_cop/cop'
 
+# Automatic romaji spelling checker
 module RomajiCop
 
   # Command-line interface of {RomajiCop}
@@ -11,6 +12,8 @@ module RomajiCop
     option :extensions, type: :string, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
 
     # Search romaji in the source files
+    #
+    # @param word [String] Target romaji
     def search(word = nil)
       cop_options = {}
 
