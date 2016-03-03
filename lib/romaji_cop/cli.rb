@@ -7,6 +7,7 @@ module RomajiCop
   # Command-line interface of {RomajiCop}
   class CLI < Thor
     desc 'search WORD', 'Search romaji'
+    option :exclude_word, type: :string, banner: 'WORD TO EXCLUDE'
     option :config, type: :string, banner: 'PATH OF THE CONFIGURATION FILE'
     option :dir, type: :string, banner: 'PATH OF TARGET DIRECTORY'
     option :extensions, type: :string, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
@@ -18,6 +19,7 @@ module RomajiCop
       cop_options = {}
 
       cop_options[:word] = word if word
+      cop_options[:exclude_word] = options[:exclude_word] if options[:exclude_word]
 
       if options[:config]
         cop_options[:config] = File.expand_path(options[:config])

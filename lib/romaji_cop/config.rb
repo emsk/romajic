@@ -10,6 +10,7 @@ module RomajiCop
     #
     # @param options [Hash] Initialize options
     # @option options [String] :word Target romaji
+    # @option options [String] :exclude_word Word to exclude
     # @option options [String] :config Path of the configuration file
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
@@ -20,6 +21,12 @@ module RomajiCop
         @target_words = [options[:word].dup]
       else
         @target_words = configs[:target_words] || []
+      end
+
+      if options[:exclude_word]
+        @exclusion_words = [options[:exclude_word]]
+      else
+        @exclusion_words = configs[:exclusion_words] || []
       end
 
       if options[:dir]
@@ -37,8 +44,6 @@ module RomajiCop
       else
         @extensions = configs[:extensions]
       end
-
-      @exclusion_words = configs[:exclusion_words] || []
     end
 
     # Get the glob pattern of the search target files

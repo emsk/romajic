@@ -35,6 +35,18 @@ describe RomajiCop::CLI do
       it { is_expected.not_to output.to_stdout }
     end
 
+    context 'given --exclude-word option' do
+      let(:options) do
+        {
+          exclude_word: 'MACCHA',
+          config: '/path/to/config.yml'
+        }
+      end
+
+      subject { lambda { cli.invoke(:search, [], options) } }
+      it { is_expected.not_to output.to_stdout }
+    end
+
     context 'given --config option' do
       let(:options) { { config: '/path/to/config.yml' } }
 

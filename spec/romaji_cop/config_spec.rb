@@ -27,10 +27,10 @@ describe RomajiCop::Config do
       subject { config }
 
       it { is_expected.to be_a described_class }
-      it { is_expected.to respond_to(:exclusion_words) }
-      it { is_expected.not_to respond_to(:exclusion_words=) }
       it { is_expected.to respond_to(:target_words) }
       it { is_expected.not_to respond_to(:target_words=) }
+      it { is_expected.to respond_to(:exclusion_words) }
+      it { is_expected.not_to respond_to(:exclusion_words=) }
       it { is_expected.to respond_to(:target_file_pattern) }
       it { is_expected.to respond_to(:exclusion_word?) }
     end
@@ -81,13 +81,29 @@ describe RomajiCop::Config do
 
     subject { config.exclusion_words }
 
-    context "when configs['exclusion_words'] is not nil" do
-      it { is_expected.to eq exclusion_words }
+    context 'when options[:exclude_word] is nil' do
+      context "when configs['exclusion_words'] is not nil" do
+        it { is_expected.to eq exclusion_words }
+      end
+
+      context "when configs['exclusion_words'] is nil" do
+        let(:exclusion_words) { nil }
+        it { is_expected.to eq [] }
+      end
     end
 
-    context "when configs['exclusion_words'] is nil" do
-      let(:exclusion_words) { nil }
-      it { is_expected.to eq [] }
+    context 'when options[:exclude_word] is not nil' do
+      context "when configs['exclusion_words'] is not nil" do
+        let(:option_exclude_word) { 'MACCHA' }
+        let(:options) do
+          {
+            exclude_word: option_exclude_word,
+            config: config_file_path
+          }
+        end
+
+        it { is_expected.to eq [option_exclude_word] }
+      end
     end
   end
 

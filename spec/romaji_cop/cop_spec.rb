@@ -4,6 +4,7 @@ describe RomajiCop::Cop do
   let(:options) do
     {
       word: 'IKKONZOME',
+      exclude_word: 'MACCHA',
       config: '/path/to/config.yml',
       dir: '/path/to/dir',
       extensions: 'css,java'
