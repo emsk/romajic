@@ -7,14 +7,14 @@ describe RomajiCop::Config do
   let(:config) { described_class.new(options) }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
-  let(:exclusion_words) { %w(class const) }
+  let(:exclude_words) { %w(class const) }
   let(:target_words) { %w(ikkonzome matcha) }
   let(:config_hash) do
     {
-      'root_dir'        => root_dir,
-      'extensions'      => extensions,
-      'exclusion_words' => exclusion_words,
-      'target_words'    => target_words
+      'root_dir'      => root_dir,
+      'extensions'    => extensions,
+      'exclude_words' => exclude_words,
+      'target_words'  => target_words
     }
   end
 
@@ -29,10 +29,10 @@ describe RomajiCop::Config do
       it { is_expected.to be_a described_class }
       it { is_expected.to respond_to(:target_words) }
       it { is_expected.not_to respond_to(:target_words=) }
-      it { is_expected.to respond_to(:exclusion_words) }
-      it { is_expected.not_to respond_to(:exclusion_words=) }
+      it { is_expected.to respond_to(:exclude_words) }
+      it { is_expected.not_to respond_to(:exclude_words=) }
       it { is_expected.to respond_to(:target_file_pattern) }
-      it { is_expected.to respond_to(:exclusion_word?) }
+      it { is_expected.to respond_to(:exclude_word?) }
     end
 
     context 'given invalid config_file_path' do
@@ -74,26 +74,26 @@ describe RomajiCop::Config do
     end
   end
 
-  describe '#exclusion_words' do
+  describe '#exclude_words' do
     before do
       allow(YAML).to receive(:load_file).and_return(config_hash)
     end
 
-    subject { config.exclusion_words }
+    subject { config.exclude_words }
 
     context 'when options[:exclude_word] is nil' do
-      context "when configs['exclusion_words'] is not nil" do
-        it { is_expected.to eq exclusion_words }
+      context "when configs['exclude_words'] is not nil" do
+        it { is_expected.to eq exclude_words }
       end
 
-      context "when configs['exclusion_words'] is nil" do
-        let(:exclusion_words) { nil }
+      context "when configs['exclude_words'] is nil" do
+        let(:exclude_words) { nil }
         it { is_expected.to eq [] }
       end
     end
 
     context 'when options[:exclude_word] is not nil' do
-      context "when configs['exclusion_words'] is not nil" do
+      context "when configs['exclude_words'] is not nil" do
         let(:option_exclude_word) { 'MACCHA' }
         let(:options) do
           {
@@ -204,12 +204,12 @@ describe RomajiCop::Config do
     end
   end
 
-  describe '#exclusion_word?' do
+  describe '#exclude_word?' do
     before do
       allow(YAML).to receive(:load_file).and_return(config_hash)
     end
 
-    subject { config.exclusion_word?(word) }
+    subject { config.exclude_word?(word) }
 
     context 'given excluded word' do
       let(:word) { 'class' }

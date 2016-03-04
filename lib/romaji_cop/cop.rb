@@ -51,7 +51,7 @@ module RomajiCop
         line_number += text.count("\n") if text.is_a?(String)
 
         next unless target_kind?(kind.to_s)
-        next if @config.exclusion_word?(text.to_s)
+        next if @config.exclude_word?(text.to_s)
 
         current_word = strip_text(text.to_s)
 

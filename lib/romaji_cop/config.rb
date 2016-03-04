@@ -4,7 +4,7 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
-    attr_reader :target_words, :exclusion_words
+    attr_reader :target_words, :exclude_words
 
     # Initialize a new Config object
     #
@@ -24,9 +24,9 @@ module RomajiCop
       end
 
       if options[:exclude_word]
-        @exclusion_words = [options[:exclude_word]]
+        @exclude_words = [options[:exclude_word]]
       else
-        @exclusion_words = configs[:exclusion_words] || []
+        @exclude_words = configs[:exclude_words] || []
       end
 
       if options[:dir]
@@ -55,12 +55,12 @@ module RomajiCop
       pattern
     end
 
-    # Check if a word is the exclusion word
+    # Check if a word is the excluded word
     #
     # @param word [String] A word, e.g. class, const
-    # @return [Boolean] True if a word is the exclusion word
-    def exclusion_word?(word)
-      exclusion_words.include?(word)
+    # @return [Boolean] True if a word is the excluded word
+    def exclude_word?(word)
+      exclude_words.include?(word)
     end
 
     private

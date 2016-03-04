@@ -30,7 +30,7 @@ describe RomajiCop::Cop do
     let(:config_mock) do
       instance_double('config',
         target_file_pattern: './spec/examples/**/*.java',
-        exclusion_word?: false,
+        exclude_word?: false,
         target_words: target_words)
     end
 
