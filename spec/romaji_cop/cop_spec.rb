@@ -28,10 +28,12 @@ describe RomajiCop::Cop do
     let(:target_words) { %w(IKKONZOME matcha) }
 
     let(:config_mock) do
-      instance_double('config',
+      instance_double(
+        'config',
         target_file_pattern: './spec/examples/**/*.java',
         exclude_word?: false,
-        target_words: target_words)
+        target_words: target_words
+      )
     end
 
     before do
