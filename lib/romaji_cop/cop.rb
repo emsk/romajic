@@ -66,7 +66,8 @@ module RomajiCop
     end
 
     def strip_text(text)
-      text.gsub(/\/|\\|\"|\*/, '')
+      text
+        .gsub(/\/|\\|\"|\*/, '')
         .gsub(/\s+/, ' ')
         .strip
     end
