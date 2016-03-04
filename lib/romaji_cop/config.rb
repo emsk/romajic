@@ -31,12 +31,10 @@ module RomajiCop
 
       if options[:dir]
         @root_dir = File.expand_path(options[:dir])
+      elsif configs[:root_dir]
+        @root_dir = File.expand_path(configs[:root_dir], File.dirname(options[:config]))
       else
-        if configs[:root_dir]
-          @root_dir = File.expand_path(configs[:root_dir], File.dirname(options[:config]))
-        else
-          @root_dir = File.expand_path('.')
-        end
+        @root_dir = File.expand_path('.')
       end
 
       if options[:extensions]
