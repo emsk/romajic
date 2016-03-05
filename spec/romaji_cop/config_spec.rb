@@ -5,16 +5,16 @@ describe RomajiCop::Config do
   let(:config_file_path) { "#{config_dir_path}/config.yml" }
   let(:options) { { config: config_file_path } }
   let(:config) { described_class.new(options) }
+  let(:target_words) { %w(ikkonzome matcha) }
+  let(:exclude_words) { %w(class const) }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
-  let(:exclude_words) { %w(class const) }
-  let(:target_words) { %w(ikkonzome matcha) }
   let(:config_hash) do
     {
-      'root_dir'      => root_dir,
-      'extensions'    => extensions,
+      'target_words'  => target_words,
       'exclude_words' => exclude_words,
-      'target_words'  => target_words
+      'root_dir'      => root_dir,
+      'extensions'    => extensions
     }
   end
 
