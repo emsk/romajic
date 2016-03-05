@@ -19,7 +19,7 @@ describe RomajiCop::CLI do
         }
       end
 
-      subject { lambda { cli.invoke(:search, [word], options) } }
+      subject { -> { cli.invoke(:search, [word], options) } }
       it { is_expected.not_to output.to_stdout }
     end
 
@@ -31,7 +31,7 @@ describe RomajiCop::CLI do
         expect(File).to receive(:expand_path).with('../../../default.yml', anything).and_return(config_file_path)
       end
 
-      subject { lambda { cli.search } }
+      subject { -> { cli.search } }
       it { is_expected.not_to output.to_stdout }
     end
 
@@ -43,14 +43,14 @@ describe RomajiCop::CLI do
         }
       end
 
-      subject { lambda { cli.invoke(:search, [], options) } }
+      subject { -> { cli.invoke(:search, [], options) } }
       it { is_expected.not_to output.to_stdout }
     end
 
     context 'given --config option' do
       let(:options) { { config: '/path/to/config.yml' } }
 
-      subject { lambda { cli.invoke(:search, [], options) } }
+      subject { -> { cli.invoke(:search, [], options) } }
       it { is_expected.not_to output.to_stdout }
     end
 
@@ -62,7 +62,7 @@ describe RomajiCop::CLI do
         }
       end
 
-      subject { lambda { cli.invoke(:search, [], options) } }
+      subject { -> { cli.invoke(:search, [], options) } }
       it { is_expected.not_to output.to_stdout }
     end
 
@@ -74,13 +74,13 @@ describe RomajiCop::CLI do
         }
       end
 
-      subject { lambda { cli.invoke(:search, [], options) } }
+      subject { -> { cli.invoke(:search, [], options) } }
       it { is_expected.not_to output.to_stdout }
     end
   end
 
   describe '#version' do
-    subject { lambda { cli.version } }
+    subject { -> { cli.version } }
     it { is_expected.to output("romaji_cop #{RomajiCop::VERSION}\n").to_stdout }
   end
 end
