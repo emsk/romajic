@@ -15,33 +15,12 @@ module RomajiCop
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     def initialize(options)
-      configs = get_configs_from_file(options[:config])
-
-      if options[:word]
-        @target_words = [options[:word].dup]
-      else
-        @target_words = configs[:target_words] || []
-      end
-
-      if options[:exclude_word]
-        @exclude_words = [options[:exclude_word]]
-      else
-        @exclude_words = configs[:exclude_words] || []
-      end
-
-      if options[:dir]
-        @root_dir = File.expand_path(options[:dir])
-      elsif configs[:root_dir]
-        @root_dir = File.expand_path(configs[:root_dir], File.dirname(options[:config]))
-      else
-        @root_dir = File.expand_path('.')
-      end
-
-      if options[:extensions]
-        @extensions = options[:extensions].split(',')
-      else
-        @extensions = configs[:extensions]
-      end
+      @options = Marshal.load(Marshal.dump(options))
+      set_configs_from_file
+      set_target_words
+      set_exclude_words
+      set_root_dir
+      set_extensions
     end
 
     # Get the glob pattern of the search target files
@@ -63,9 +42,43 @@ module RomajiCop
 
     private
 
-    def get_configs_from_file(config_file_path)
-      configs = YAML.load_file(config_file_path)
-      Hash[configs.map { |k, v| [k.to_sym, v] }]
+    def set_configs_from_file
+      configs = YAML.load_file(@options[:config])
+      @configs = Hash[configs.map { |k, v| [k.to_sym, v] }]
+    end
+
+    def set_target_words
+      if @options[:word]
+        @target_words = [@options[:word]]
+      else
+        @target_words = @configs[:target_words] || []
+      end
+    end
+
+    def set_exclude_words
+      if @options[:exclude_word]
+        @exclude_words = [@options[:exclude_word]]
+      else
+        @exclude_words = @configs[:exclude_words] || []
+      end
+    end
+
+    def set_root_dir
+      if @options[:dir]
+        @root_dir = File.expand_path(@options[:dir])
+      elsif @configs[:root_dir]
+        @root_dir = File.expand_path(@configs[:root_dir], File.dirname(@options[:config]))
+      else
+        @root_dir = File.expand_path('.')
+      end
+    end
+
+    def set_extensions
+      if @options[:extensions]
+        @extensions = @options[:extensions].split(',')
+      else
+        @extensions = @configs[:extensions]
+      end
     end
   end
 end
