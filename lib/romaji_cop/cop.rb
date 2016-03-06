@@ -30,11 +30,15 @@ module RomajiCop
 
         extension = File.extname(file_path).sub(/^./, '').downcase
 
-        next if extension.empty?
+        @target_kinds = TARGET_KINDS[extension.to_sym]
 
-        @target_kinds = TARGET_KINDS[extension.to_sym] || []
-        tokens = CodeRay.scan(File.read(file_path), extension.to_sym).tokens
-        search_in_tokens(tokens, file_path)
+        if @target_kinds.nil?
+          tokens = CodeRay.scan(File.read(file_path), :txt).tokens
+          search_in_plain_text(tokens, file_path)
+        else
+          tokens = CodeRay.scan(File.read(file_path), extension.to_sym).tokens
+          search_in_tokens(tokens, file_path)
+        end
       end
 
       nil
@@ -58,6 +62,22 @@ module RomajiCop
         next if current_word.empty?
 
         search_in_words(current_word, file_path, line_number)
+      end
+    end
+
+    def search_in_plain_text(tokens, file_path)
+      text = tokens[0]
+
+      text.each_line.with_index(1) do |line, line_number|
+        line.split.each do |word|
+          next if @config.exclude_word?(word.to_s)
+
+          current_word = strip_text(word.to_s)
+
+          next if current_word.empty?
+
+          search_in_words(current_word, file_path, line_number)
+        end
       end
     end
 

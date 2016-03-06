@@ -1,0 +1,4 @@
+# Example4 class
+class Example4
+  MACCHA = '#c5c56a'
+end

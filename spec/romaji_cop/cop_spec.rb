@@ -26,11 +26,12 @@ describe RomajiCop::Cop do
 
   describe '#search' do
     let(:target_words) { %w(IKKONZOME matcha) }
+    let(:target_file_pattern) { './spec/examples/**/*.java' }
 
     let(:config_mock) do
       instance_double(
         'config',
-        target_file_pattern: './spec/examples/**/*.java',
+        target_file_pattern: target_file_pattern,
         exclude_word?: false,
         target_words: target_words
       )
@@ -49,6 +50,15 @@ describe RomajiCop::Cop do
       it { is_expected.to output(%r(IKONZOME -> #{target_words[0].downcase} @ ./spec/examples/Example1.java:5)).to_stdout }
       it { is_expected.to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example2.java:6)).to_stdout }
       it { is_expected.to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example3.JAVA:6)).to_stdout }
+
+      context 'given options[:extensions]' do
+        it { is_expected.not_to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example4:3)).to_stdout }
+      end
+
+      context 'given no options[:extensions]' do
+        let(:target_file_pattern) { './spec/examples/**/*' }
+        it { is_expected.to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example4:3)).to_stdout }
+      end
     end
   end
 end
