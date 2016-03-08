@@ -7,7 +7,8 @@ describe RomajiCop::Cop do
       exclude_word: 'MACCHA',
       config: '/path/to/config.yml',
       dir: '/path/to/dir',
-      extensions: 'css,java'
+      extensions: 'css,java',
+      distance: 3
     }
   end
 
@@ -33,7 +34,8 @@ describe RomajiCop::Cop do
         'config',
         target_file_pattern: target_file_pattern,
         exclude_word?: false,
-        target_words: target_words
+        target_words: target_words,
+        distance: 3
       )
     end
 
@@ -59,6 +61,31 @@ describe RomajiCop::Cop do
         let(:target_file_pattern) { './spec/examples/**/*' }
         it { is_expected.to output(%r(MACCHA -> #{target_words[1].downcase} @ ./spec/examples/foo/Example4:3)).to_stdout }
       end
+    end
+  end
+
+  describe '#similar?' do
+    let(:config_mock) { instance_double('config', distance: distance) }
+
+    before do
+      expect(RomajiCop::Config).to receive(:new).with(options).and_return(config_mock)
+    end
+
+    subject { cop.send(:similar?, 'AIUEO', 'AIUUU') }
+
+    context 'when @config.distance is 0' do
+      let(:distance) { 0 }
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when @config.distance is 1' do
+      let(:distance) { 1 }
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when @config.distance is 2' do
+      let(:distance) { 2 }
+      it { is_expected.to be_truthy }
     end
   end
 end

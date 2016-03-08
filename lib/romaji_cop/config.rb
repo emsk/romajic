@@ -4,7 +4,7 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
-    attr_reader :target_words, :exclude_words
+    attr_reader :target_words, :exclude_words, :distance
 
     # Initialize a new Config object
     #
@@ -14,6 +14,7 @@ module RomajiCop
     # @option options [String] :config Path of the configuration file
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
+    # @option options [String] :distance Levenshtein distance
     def initialize(options)
       @options = Marshal.load(Marshal.dump(options))
       set_configs_from_file
@@ -21,6 +22,7 @@ module RomajiCop
       set_exclude_words
       set_root_dir
       set_extensions
+      set_distance
     end
 
     # Get the glob pattern of the search target files
@@ -79,6 +81,10 @@ module RomajiCop
       else
         @extensions = @configs[:extensions]
       end
+    end
+
+    def set_distance
+      @distance = @options[:distance] || @configs[:distance] || 3
     end
   end
 end

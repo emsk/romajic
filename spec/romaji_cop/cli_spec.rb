@@ -77,6 +77,18 @@ describe RomajiCop::CLI do
       subject { -> { cli.invoke(:search, [], options) } }
       it { is_expected.not_to output.to_stdout }
     end
+
+    context 'given --distance option' do
+      let(:options) do
+        {
+          config: '/path/to/config.yml',
+          distance: 1
+        }
+      end
+
+      subject { -> { cli.invoke(:search, [], options) } }
+      it { is_expected.not_to output.to_stdout }
+    end
   end
 
   describe '#version' do

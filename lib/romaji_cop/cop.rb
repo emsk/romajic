@@ -19,6 +19,7 @@ module RomajiCop
     # @option options [String] :config Path of the configuration file
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
+    # @option options [String] :distance Levenshtein distance
     def initialize(options)
       @config = Config.new(options)
     end
@@ -102,7 +103,7 @@ module RomajiCop
 
     def similar?(target, current)
       distance = Levenshtein.distance(target, current)
-      1 <= distance && distance <= 3
+      1 <= distance && distance <= @config.distance
     end
   end
 end

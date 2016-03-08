@@ -11,6 +11,7 @@ module RomajiCop
     option :config, type: :string, banner: 'PATH OF THE CONFIGURATION FILE'
     option :dir, type: :string, banner: 'PATH OF TARGET DIRECTORY'
     option :extensions, type: :string, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
+    option :distance, type: :numeric, banner: 'LEVENSHTEIN DISTANCE'
 
     # Search romaji in the source files
     #
@@ -29,6 +30,7 @@ module RomajiCop
 
       cop_options[:dir] = options[:dir] if options[:dir]
       cop_options[:extensions] = options[:extensions] if options[:extensions]
+      cop_options[:distance] = options[:distance] if options[:distance]
 
       cop = Cop.new(cop_options)
       cop.search

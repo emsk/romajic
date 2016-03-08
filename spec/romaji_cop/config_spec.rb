@@ -7,6 +7,7 @@ describe RomajiCop::Config do
   let(:config) { described_class.new(options) }
   let(:target_words) { %w(ikkonzome matcha) }
   let(:exclude_words) { %w(class const) }
+  let(:distance) { 2 }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
   let(:config_hash) do
@@ -14,7 +15,8 @@ describe RomajiCop::Config do
       'target_words'  => target_words,
       'exclude_words' => exclude_words,
       'root_dir'      => root_dir,
-      'extensions'    => extensions
+      'extensions'    => extensions,
+      'distance'      => distance
     }
   end
 
@@ -31,6 +33,8 @@ describe RomajiCop::Config do
       it { is_expected.not_to respond_to(:target_words=) }
       it { is_expected.to respond_to(:exclude_words) }
       it { is_expected.not_to respond_to(:exclude_words=) }
+      it { is_expected.to respond_to(:distance) }
+      it { is_expected.not_to respond_to(:distance=) }
       it { is_expected.to respond_to(:target_file_pattern) }
       it { is_expected.to respond_to(:exclude_word?) }
     end
@@ -103,6 +107,39 @@ describe RomajiCop::Config do
         end
 
         it { is_expected.to eq [option_exclude_word] }
+      end
+    end
+  end
+
+  describe '#distance' do
+    before do
+      allow(YAML).to receive(:load_file).and_return(config_hash)
+    end
+
+    subject { config.distance }
+
+    context 'when options[:distance] is nil' do
+      context "when configs['distance'] is not nil" do
+        it { is_expected.to eq distance }
+      end
+
+      context "when configs['distance'] is nil" do
+        let(:distance) { nil }
+        it { is_expected.to eq 3 }
+      end
+    end
+
+    context 'when options[:distance] is not nil' do
+      context "when configs['distance'] is not nil" do
+        let(:option_distance) { 1 }
+        let(:options) do
+          {
+            config: config_file_path,
+            distance: option_distance
+          }
+        end
+
+        it { is_expected.to eq option_distance }
       end
     end
   end
