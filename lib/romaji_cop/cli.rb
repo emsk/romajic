@@ -7,11 +7,11 @@ module RomajiCop
   # Command-line interface of {RomajiCop}
   class CLI < Thor
     desc 'search WORD', 'Search romaji'
-    option :exclude_word, type: :string, banner: 'WORD TO EXCLUDE'
-    option :config, type: :string, banner: 'PATH OF THE CONFIGURATION FILE'
-    option :dir, type: :string, banner: 'PATH OF TARGET DIRECTORY'
-    option :extensions, type: :string, banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
-    option :distance, type: :numeric, banner: 'LEVENSHTEIN DISTANCE'
+    option :exclude_word, type: :string, aliases: '-e', banner: 'WORD TO EXCLUDE'
+    option :config, type: :string, aliases: '-c', banner: 'PATH OF THE CONFIGURATION FILE'
+    option :dir, type: :string, aliases: '-d', banner: 'PATH OF TARGET DIRECTORY'
+    option :extensions, type: :string, aliases: '-E', banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
+    option :distance, type: :numeric, aliases: '-D', banner: 'LEVENSHTEIN DISTANCE'
 
     # Search romaji in the source files
     #
