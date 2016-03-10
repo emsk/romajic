@@ -14,7 +14,7 @@ module RomajiCop
     # @option options [String] :config Path of the configuration file
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
-    # @option options [String] :distance Levenshtein distance
+    # @option options [Integer] :distance Levenshtein distance
     def initialize(options)
       @options = Marshal.load(Marshal.dump(options))
       set_configs_from_file
