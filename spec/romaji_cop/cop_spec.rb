@@ -43,8 +43,14 @@ describe RomajiCop::Cop do
       expect(RomajiCop::Config).to receive(:new).with(options).and_return(config_mock)
     end
 
-    subject { cop.search }
-    it { is_expected.to be_nil }
+    describe 'return value' do
+      before do
+        allow(cop).to receive(:puts)
+      end
+
+      subject { cop.search }
+      it { is_expected.to be_nil }
+    end
 
     describe 'lambda' do
       subject { -> { cop.search } }
