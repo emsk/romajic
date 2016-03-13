@@ -1,4 +1,5 @@
 require 'yaml'
+require 'romaji_kit'
 
 module RomajiCop
 
@@ -54,6 +55,10 @@ module RomajiCop
         @target_words = [@options[:word]]
       else
         @target_words = @configs[:target_words] || []
+      end
+
+      @target_words.map! do |word|
+        word.ascii_only? ? word : RomajiKit::Converter.hepburn(word)
       end
     end
 

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'spec_helper'
 
 describe RomajiCop::Config do
@@ -60,6 +62,11 @@ describe RomajiCop::Config do
       context "when configs['target_words'] is nil" do
         let(:target_words) { nil }
         it { is_expected.to eq [] }
+      end
+
+      context "when configs['target_words'] contains kana text" do
+        let(:target_words) { %w(いっこんぞめ matcha こんじき) }
+        it { is_expected.to eq %w(ikkonzome matcha konjiki) }
       end
     end
 
