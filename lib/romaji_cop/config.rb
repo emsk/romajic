@@ -1,5 +1,5 @@
 require 'yaml'
-require 'romaji_kit'
+require 'romaji_kit/converter'
 
 module RomajiCop
 
