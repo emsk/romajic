@@ -8,7 +8,8 @@ describe RomajiCop::Cop do
       config: '/path/to/config.yml',
       dir: '/path/to/dir',
       extensions: 'css,java',
-      distance: 3
+      distance: 3,
+      converter: 'hepburn'
     }
   end
 

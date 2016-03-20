@@ -20,6 +20,7 @@ module RomajiCop
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     # @option options [Integer] :distance Levenshtein distance
+    # @option options [String] :converter Romaji converter
     def initialize(options)
       @config = Config.new(options)
     end

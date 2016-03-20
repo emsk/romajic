@@ -12,13 +12,15 @@ describe RomajiCop::Config do
   let(:distance) { 2 }
   let(:root_dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
+  let(:converter) { 'hepburn' }
   let(:config_hash) do
     {
       'target_words'  => target_words,
       'exclude_words' => exclude_words,
       'root_dir'      => root_dir,
       'extensions'    => extensions,
-      'distance'      => distance
+      'distance'      => distance,
+      'converter'     => converter
     }
   end
 
@@ -39,6 +41,13 @@ describe RomajiCop::Config do
       it { is_expected.not_to respond_to(:distance=) }
       it { is_expected.to respond_to(:target_file_pattern) }
       it { is_expected.to respond_to(:exclude_word?) }
+
+      context 'given invalid converter' do
+        let(:converter) { 'invalid_converter' }
+
+        subject { -> { config } }
+        it { is_expected.to raise_error(RuntimeError, "No such converter - #{converter}") }
+      end
     end
 
     context 'given invalid config_file_path' do
@@ -65,8 +74,38 @@ describe RomajiCop::Config do
       end
 
       context "when configs['target_words'] contains kana text" do
-        let(:target_words) { %w(いっこんぞめ matcha こんじき) }
-        it { is_expected.to eq %w(ikkonzome matcha konjiki) }
+        let(:target_words) { %w(いっこんぞめ matcha まちづくり) }
+
+        context 'when options[:converter] is nil' do
+          context "when configs['converter'] is 'kunrei'" do
+            let(:converter) { 'kunrei' }
+            it { is_expected.to eq %w(ikkonzome matcha matizukuri) } # Kunrei-shiki
+          end
+
+          context "when configs['converter'] is nil" do
+            let(:converter) { nil }
+            it { is_expected.to eq %w(ikkonzome matcha machizukuri) } # Hepburn
+          end
+        end
+
+        context "when options[:converter] is 'nihon'" do
+          let(:options) do
+            {
+              config: config_file_path,
+              converter: 'nihon'
+            }
+          end
+
+          context "when configs['converter'] is nil" do
+            let(:converter) { nil }
+            it { is_expected.to eq %w(ikkonzome matcha matidukuri) } # Nihon-shiki
+          end
+
+          context "when configs['converter'] is 'kunrei'" do
+            let(:converter) { 'kunrei' }
+            it { is_expected.to eq %w(ikkonzome matcha matidukuri) } # Nihon-shiki
+          end
+        end
       end
     end
 

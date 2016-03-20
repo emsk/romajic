@@ -12,6 +12,7 @@ module RomajiCop
     option :dir, type: :string, aliases: '-d', banner: 'PATH OF TARGET DIRECTORY'
     option :extensions, type: :string, aliases: '-E', banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
     option :distance, type: :numeric, aliases: '-D', banner: 'LEVENSHTEIN DISTANCE'
+    option :converter, type: :string, aliases: '-C', banner: 'ROMAJI CONVERTER, e.g. hepburn, nihon, kunrei'
 
     # Search romaji in the source files
     #
@@ -31,6 +32,7 @@ module RomajiCop
       cop_options[:dir] = options[:dir] if options[:dir]
       cop_options[:extensions] = options[:extensions] if options[:extensions]
       cop_options[:distance] = options[:distance] if options[:distance]
+      cop_options[:converter] = options[:converter] if options[:converter]
 
       cop = Cop.new(cop_options)
       cop.search

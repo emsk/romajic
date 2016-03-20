@@ -5,6 +5,8 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
+    CONVERTERS = %w(hepburn nihon kunrei)
+
     attr_reader :target_words, :exclude_words, :distance
 
     # Initialize a new Config object
@@ -16,9 +18,11 @@ module RomajiCop
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     # @option options [Integer] :distance Levenshtein distance
+    # @option options [String] :converter Romaji converter
     def initialize(options)
       @options = Marshal.load(Marshal.dump(options))
       set_configs_from_file
+      set_converter
       set_target_words
       set_exclude_words
       set_root_dir
@@ -50,6 +54,11 @@ module RomajiCop
       @configs = Hash[configs.map { |k, v| [k.to_sym, v] }]
     end
 
+    def set_converter
+      @converter = @options[:converter] || @configs[:converter] || 'hepburn'
+      raise "No such converter - #{@converter}" unless CONVERTERS.include?(@converter)
+    end
+
     def set_target_words
       if @options[:word]
         @target_words = [@options[:word]]
@@ -58,7 +67,7 @@ module RomajiCop
       end
 
       @target_words.map! do |word|
-        word.ascii_only? ? word : RomajiKit::Converter.hepburn(word)
+        word.ascii_only? ? word : RomajiKit::Converter.public_send(@converter, word)
       end
     end
 
