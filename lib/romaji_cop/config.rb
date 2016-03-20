@@ -5,7 +5,8 @@ module RomajiCop
 
   # Configurations for {Cop}
   class Config
-    CONVERTERS = %w(hepburn nihon kunrei)
+    HEPBURN_CONVERTERS = %w(hepburn modified_hepburn traditional_hepburn)
+    ALLOWED_CONVERTERS = %w(hepburn nihon kunrei)
 
     attr_reader :target_words, :exclude_words, :distance
 
@@ -56,7 +57,22 @@ module RomajiCop
 
     def set_converter
       @converter = @options[:converter] || @configs[:converter] || 'hepburn'
-      raise "No such converter - #{@converter}" unless CONVERTERS.include?(@converter)
+      set_converter_options
+      @converter = 'hepburn' if hepburn_converter?
+
+      raise "No such converter - #{@converter}" unless allowed_converter?
+    end
+
+    def set_converter_options
+      @converter_options = @converter == 'traditional_hepburn' ? { traditional: true } : {}
+    end
+
+    def hepburn_converter?
+      HEPBURN_CONVERTERS.include?(@converter)
+    end
+
+    def allowed_converter?
+      ALLOWED_CONVERTERS.include?(@converter)
     end
 
     def set_target_words
@@ -67,7 +83,7 @@ module RomajiCop
       end
 
       @target_words.map! do |word|
-        word.ascii_only? ? word : RomajiKit::Converter.public_send(@converter, word)
+        word.ascii_only? ? word : RomajiKit::Converter.public_send(@converter, word, @converter_options)
       end
     end
 

@@ -74,17 +74,27 @@ describe RomajiCop::Config do
       end
 
       context "when configs['target_words'] contains kana text" do
-        let(:target_words) { %w(いっこんぞめ matcha まちづくり) }
+        let(:target_words) { %w(いっこんぞめ matcha まちづくり しんばし) }
 
         context 'when options[:converter] is nil' do
           context "when configs['converter'] is 'kunrei'" do
             let(:converter) { 'kunrei' }
-            it { is_expected.to eq %w(ikkonzome matcha matizukuri) } # Kunrei-shiki
+            it { is_expected.to eq %w(ikkonzome matcha matizukuri sinbasi) } # Kunrei-shiki
+          end
+
+          context "when configs['converter'] is 'modified_hepburn'" do
+            let(:converter) { 'modified_hepburn' }
+            it { is_expected.to eq %w(ikkonzome matcha machizukuri shinbashi) } # Modified hepburn
+          end
+
+          context "when configs['converter'] is 'traditional_hepburn'" do
+            let(:converter) { 'traditional_hepburn' }
+            it { is_expected.to eq %w(ikkonzome matcha machizukuri shimbashi) } # Traditional hepburn
           end
 
           context "when configs['converter'] is nil" do
             let(:converter) { nil }
-            it { is_expected.to eq %w(ikkonzome matcha machizukuri) } # Hepburn
+            it { is_expected.to eq %w(ikkonzome matcha machizukuri shinbashi) } # Modified hepburn
           end
         end
 
@@ -98,12 +108,12 @@ describe RomajiCop::Config do
 
           context "when configs['converter'] is nil" do
             let(:converter) { nil }
-            it { is_expected.to eq %w(ikkonzome matcha matidukuri) } # Nihon-shiki
+            it { is_expected.to eq %w(ikkonzome matcha matidukuri sinbasi) } # Nihon-shiki
           end
 
           context "when configs['converter'] is 'kunrei'" do
             let(:converter) { 'kunrei' }
-            it { is_expected.to eq %w(ikkonzome matcha matidukuri) } # Nihon-shiki
+            it { is_expected.to eq %w(ikkonzome matcha matidukuri sinbasi) } # Nihon-shiki
           end
         end
       end
