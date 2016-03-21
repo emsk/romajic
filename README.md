@@ -11,7 +11,23 @@ Automatic romaji spelling checker for programmer.
 
 ## Installation
 
-WIP
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'romajic'
+```
+
+And then execute:
+
+```sh
+$ bundle
+```
+
+Or install it yourself as:
+
+```sh
+$ gem install romajic
+```
 
 ## Usage
 
@@ -21,13 +37,13 @@ SUSI -> sushi @ /usr/local/src/Example.java:5
 sushiya -> sushi @ /usr/local/src/example.txt:2
 ```
 
-## Development
-
-WIP
-
 ## Contributing
 
-WIP
+1. Fork it ( https://github.com/emsk/romajic/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 ## License
 
