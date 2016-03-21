@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'romaji_cop/version'
+require 'romajic/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'romaji_cop'
-  spec.version       = RomajiCop::VERSION
+  spec.name          = 'romajic'
+  spec.version       = Romajic::VERSION
   spec.authors       = ['emsk']
   spec.email         = ['emsk1987@gmail.com']
 
   spec.summary       = %q{Automatic romaji spelling checker.}
   spec.description   = %q{Automatic romaji spelling checker. Let's write correct romaji.}
-  spec.homepage      = 'https://github.com/emsk/romaji_cop'
+  spec.homepage      = 'https://github.com/emsk/romajic'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or

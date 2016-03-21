@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe RomajiCop::CLI do
+describe Romajic::CLI do
   let(:cli) { described_class.new }
 
   describe '#search' do
     let(:cop_mock) { instance_double('cop', search: nil) }
 
     before do
-      expect(RomajiCop::Cop).to receive(:new).with(options).and_return(cop_mock)
+      expect(Romajic::Cop).to receive(:new).with(options).and_return(cop_mock)
     end
 
     context 'given word' do
@@ -105,6 +105,6 @@ describe RomajiCop::CLI do
 
   describe '#version' do
     subject { -> { cli.version } }
-    it { is_expected.to output("romaji_cop #{RomajiCop::VERSION}\n").to_stdout }
+    it { is_expected.to output("romajic #{Romajic::VERSION}\n").to_stdout }
   end
 end

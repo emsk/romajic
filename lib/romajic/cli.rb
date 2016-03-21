@@ -1,10 +1,10 @@
 require 'thor'
-require 'romaji_cop/cop'
+require 'romajic/cop'
 
 # Automatic romaji spelling checker
-module RomajiCop
+module Romajic
 
-  # Command-line interface of {RomajiCop}
+  # Command-line interface of {Romajic}
   class CLI < Thor
     desc 'search WORD', 'Search romaji'
     option :exclude_word, type: :string, aliases: '-e', banner: 'WORD TO EXCLUDE'
@@ -43,7 +43,7 @@ module RomajiCop
 
     # Print the version
     def version
-      puts "romaji_cop #{RomajiCop::VERSION}"
+      puts "romajic #{Romajic::VERSION}"
     end
   end
 

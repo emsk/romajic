@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe RomajiCop::Config do
+describe Romajic::Config do
   let(:config_dir_path) { '/path/to' }
   let(:config_file_path) { "#{config_dir_path}/config.yml" }
   let(:options) { { config: config_file_path } }

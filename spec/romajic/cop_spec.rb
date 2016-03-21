@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RomajiCop::Cop do
+describe Romajic::Cop do
   let(:options) do
     {
       word: 'IKKONZOME',
@@ -17,7 +17,7 @@ describe RomajiCop::Cop do
 
   describe '.new' do
     before do
-      expect(RomajiCop::Config).to receive(:new).with(options)
+      expect(Romajic::Config).to receive(:new).with(options)
     end
 
     subject { cop }
@@ -41,7 +41,7 @@ describe RomajiCop::Cop do
     end
 
     before do
-      expect(RomajiCop::Config).to receive(:new).with(options).and_return(config_mock)
+      expect(Romajic::Config).to receive(:new).with(options).and_return(config_mock)
     end
 
     describe 'return value' do
@@ -75,7 +75,7 @@ describe RomajiCop::Cop do
     let(:config_mock) { instance_double('config', distance: distance) }
 
     before do
-      expect(RomajiCop::Config).to receive(:new).with(options).and_return(config_mock)
+      expect(Romajic::Config).to receive(:new).with(options).and_return(config_mock)
     end
 
     subject { cop.send(:similar?, 'AIUEO', 'AIUUU') }

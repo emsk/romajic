@@ -1,10 +1,10 @@
 require 'coderay'
 require 'levenshtein'
-require 'romaji_cop/config'
+require 'romajic/config'
 
-module RomajiCop
+module Romajic
 
-  # Search logic class of {RomajiCop}
+  # Search logic class of {Romajic}
   class Cop
     TARGET_KINDS = CodeRay::TokenKinds.keys
 

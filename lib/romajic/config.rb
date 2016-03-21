@@ -1,7 +1,7 @@
 require 'yaml'
 require 'romaji_kit/converter'
 
-module RomajiCop
+module Romajic
 
   # Configurations for {Cop}
   class Config
