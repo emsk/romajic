@@ -12,7 +12,7 @@ module Romajic
     option :dir, type: :string, aliases: '-d', banner: 'PATH OF TARGET DIRECTORY'
     option :extensions, type: :string, aliases: '-E', banner: 'COMMA-SEPARATED TARGET EXTENSIONS'
     option :distance, type: :numeric, aliases: '-D', banner: 'LEVENSHTEIN DISTANCE'
-    option :converter, type: :string, aliases: '-C', banner: 'ROMAJI CONVERTER, e.g. hepburn, nihon, kunrei'
+    option :converter, type: :string, aliases: '-C', banner: 'ROMAJI CONVERTER, e.g. hepburn, modified_hepburn, traditional_hepburn, nihon, or kunrei'
 
     # Search romaji in the source files
     #
