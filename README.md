@@ -37,6 +37,17 @@ SUSI -> sushi @ /usr/local/src/Example.java:5
 sushiya -> sushi @ /usr/local/src/example.txt:2
 ```
 
+## Command Options
+
+| Option | Description |
+| :----- | :---------- |
+| `-e/--exclude-word` | Word to exclude. |
+| `-c/--config` | Path of configuration file. |
+| `-d/--dir` | Path of target directory. |
+| `-E/--extensions` | Comma-separated target extensions. |
+| `-D/--distance` | Levenshtein distance. |
+| `-C/--converter` | Romaji converter, such as `hepburn`, `modified_hepburn`, `traditional_hepburn`, `nihon`, or `kunrei`. |
+
 ## Contributing
 
 1. Fork it ( https://github.com/emsk/romajic/fork )
