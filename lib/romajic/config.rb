@@ -1,5 +1,5 @@
 require 'yaml'
-require 'romaji_kit/converter'
+require 'romajify/converter'
 
 module Romajic
 
@@ -83,7 +83,7 @@ module Romajic
       end
 
       @target_words.map! do |word|
-        word.ascii_only? ? word : RomajiKit::Converter.public_send(@converter, word, @converter_options)
+        word.ascii_only? ? word : Romajify::Converter.public_send(@converter, word, @converter_options)
       end
     end
 
