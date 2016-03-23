@@ -46,7 +46,7 @@ describe Romajic::Config do
         let(:converter) { 'invalid_converter' }
 
         subject { -> { config } }
-        it { is_expected.to raise_error(RuntimeError, "No such converter - #{converter}") }
+        it { is_expected.to raise_error(Romajic::Error, "No such converter - #{converter}") }
       end
     end
 

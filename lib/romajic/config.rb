@@ -1,5 +1,6 @@
 require 'yaml'
 require 'romajify/converter'
+require 'romajic/error'
 
 module Romajic
 
@@ -60,7 +61,7 @@ module Romajic
       set_converter_options
       @converter = 'hepburn' if hepburn_converter?
 
-      raise "No such converter - #{@converter}" unless allowed_converter?
+      raise Romajic::Error, "No such converter - #{@converter}" unless allowed_converter?
     end
 
     def set_converter_options
