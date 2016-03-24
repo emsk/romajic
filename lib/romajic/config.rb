@@ -54,6 +54,8 @@ module Romajic
     def set_configs_from_file
       configs = YAML.load_file(@options[:config])
       @configs = Hash[configs.map { |k, v| [k.to_sym, v] }]
+    rescue Errno::ENOENT => e
+      raise Romajic::Error, e.message
     end
 
     def set_converter

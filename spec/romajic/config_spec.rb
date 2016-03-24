@@ -52,7 +52,7 @@ describe Romajic::Config do
 
     context 'given invalid config_file_path' do
       subject { -> { config } }
-      it { is_expected.to raise_error(Errno::ENOENT, /No such file or directory( @ rb_sysopen)? - #{config_file_path}/) }
+      it { is_expected.to raise_error(Romajic::Error, /No such file or directory( @ rb_sysopen)? - #{config_file_path}/) }
     end
   end
 
