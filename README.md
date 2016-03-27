@@ -61,6 +61,10 @@ sushiya -> sushi @ /usr/local/src/example.txt:2
 | `-D/--distance` | Levenshtein distance. | `3` |
 | `-C/--converter` | Romaji converter, such as `hepburn`, `modified_hepburn`, `traditional_hepburn`, `nihon`, or `kunrei`. | `hepburn` |
 
+## Documentation
+
+http://www.rubydoc.info/gems/romajic
+
 ## Contributing
 
 1. Fork it ( https://github.com/emsk/romajic/fork )
