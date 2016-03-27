@@ -52,14 +52,14 @@ sushiya -> sushi @ /usr/local/src/example.txt:2
 
 ## Command Options
 
-| Option | Description |
-| :----- | :---------- |
-| `-e/--exclude-word` | Word to exclude. |
-| `-c/--config` | Path of configuration file. |
-| `-d/--dir` | Path of target directory. |
-| `-E/--extensions` | Comma-separated target extensions. |
-| `-D/--distance` | Levenshtein distance. |
-| `-C/--converter` | Romaji converter, such as `hepburn`, `modified_hepburn`, `traditional_hepburn`, `nihon`, or `kunrei`. |
+| Option | Description | Default |
+| :----- | :---------- | :------ |
+| `-e/--exclude-word` | Word to exclude. | |
+| `-c/--config` | Path of configuration file. | default.yml in romajic gem |
+| `-d/--dir` | Path of target directory. | Current directory |
+| `-E/--extensions` | Comma-separated target extensions. | All extensions |
+| `-D/--distance` | Levenshtein distance. | `3` |
+| `-C/--converter` | Romaji converter, such as `hepburn`, `modified_hepburn`, `traditional_hepburn`, `nihon`, or `kunrei`. | `hepburn` |
 
 ## Contributing
 
