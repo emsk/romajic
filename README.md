@@ -65,6 +65,14 @@ sushiya -> sushi @ /usr/local/src/example.txt:2
 
 http://www.rubydoc.info/gems/romajic
 
+## Supported Ruby Versions
+
+* Ruby 1.9.3
+* Ruby 2.0.0
+* Ruby 2.1
+* Ruby 2.2
+* Ruby 2.3
+
 ## Contributing
 
 1. Fork it ( https://github.com/emsk/romajic/fork )
