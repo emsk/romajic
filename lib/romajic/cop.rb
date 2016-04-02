@@ -6,7 +6,7 @@ module Romajic
 
   # Search logic class of {Romajic}
   class Cop
-    TARGET_KINDS = CodeRay::TokenKinds.keys
+    TARGET_KINDS = CodeRay::TokenKinds.keys.freeze
 
     # Initialize a new Cop object
     #

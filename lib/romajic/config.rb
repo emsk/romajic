@@ -6,8 +6,8 @@ module Romajic
 
   # Configurations for {Cop}
   class Config
-    HEPBURN_CONVERTERS = %i(hepburn modified_hepburn traditional_hepburn)
-    ALLOWED_CONVERTERS = %i(hepburn nihon kunrei)
+    HEPBURN_CONVERTERS = %i(hepburn modified_hepburn traditional_hepburn).freeze
+    ALLOWED_CONVERTERS = %i(hepburn nihon kunrei).freeze
 
     attr_reader :target_words, :exclude_words, :distance
 
