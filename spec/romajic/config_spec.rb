@@ -116,6 +116,20 @@ describe Romajic::Config do
             it { is_expected.to eq %w(ikkonzome matcha matidukuri sinbasi) } # Nihon-shiki
           end
         end
+
+        context 'when options[:converter] is :nihon' do
+          let(:options) do
+            {
+              config: config_file_path,
+              converter: :nihon
+            }
+          end
+
+          context "when configs['converter'] is nil" do
+            let(:converter) { nil }
+            it { is_expected.to eq %w(ikkonzome matcha matidukuri sinbasi) } # Nihon-shiki
+          end
+        end
       end
     end
 

@@ -6,8 +6,8 @@ module Romajic
 
   # Configurations for {Cop}
   class Config
-    HEPBURN_CONVERTERS = %w(hepburn modified_hepburn traditional_hepburn)
-    ALLOWED_CONVERTERS = %w(hepburn nihon kunrei)
+    HEPBURN_CONVERTERS = %i(hepburn modified_hepburn traditional_hepburn)
+    ALLOWED_CONVERTERS = %i(hepburn nihon kunrei)
 
     attr_reader :target_words, :exclude_words, :distance
 
@@ -20,7 +20,7 @@ module Romajic
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     # @option options [Integer] :distance Levenshtein distance
-    # @option options [String] :converter Romaji converter
+    # @option options [String, Symbol] :converter Romaji converter
     def initialize(options)
       @options = Marshal.load(Marshal.dump(options))
       set_configs_from_file
@@ -59,15 +59,15 @@ module Romajic
     end
 
     def set_converter
-      @converter = @options[:converter] || @configs[:converter] || 'hepburn'
+      @converter = (@options[:converter] || @configs[:converter] || :hepburn).to_sym
       set_converter_options
-      @converter = 'hepburn' if hepburn_converter?
+      @converter = :hepburn if hepburn_converter?
 
       raise Romajic::Error, "No such converter - #{@converter}" unless allowed_converter?
     end
 
     def set_converter_options
-      @converter_options = @converter == 'traditional_hepburn' ? { traditional: true } : {}
+      @converter_options = @converter == :traditional_hepburn ? { traditional: true } : {}
     end
 
     def hepburn_converter?

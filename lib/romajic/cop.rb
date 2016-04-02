@@ -17,7 +17,7 @@ module Romajic
     # @option options [String] :dir Path of target directory
     # @option options [String] :extensions Comma-separated target extensions
     # @option options [Integer] :distance Levenshtein distance
-    # @option options [String] :converter Romaji converter
+    # @option options [String, Symbol] :converter Romaji converter
     def initialize(options)
       @config = Config.new(options)
     end
