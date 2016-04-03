@@ -26,7 +26,8 @@ module Romajic
       if options[:config]
         cop_options[:config] = File.expand_path(options[:config])
       else
-        cop_options[:config] = File.expand_path('../../../default.yml', __FILE__)
+        default_config_file = File.expand_path('.romajic.yml')
+        cop_options[:config] = default_config_file if FileTest.exist?(default_config_file)
       end
 
       cop_options[:dir] = options[:dir] if options[:dir]

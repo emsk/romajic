@@ -24,15 +24,28 @@ describe Romajic::CLI do
     end
 
     context 'given no options' do
-      let(:config_file_path) { '/path/to/default.yml' }
-      let(:options) { { config: config_file_path } }
+      let(:config_file_path) { '/path/to/.romajic.yml' }
 
       before do
-        expect(File).to receive(:expand_path).with('../../../default.yml', anything).and_return(config_file_path)
+        expect(File).to receive(:expand_path).with('.romajic.yml').and_return(config_file_path)
+        expect(FileTest).to receive(:exist?).with(config_file_path).and_return(config_file_exist)
       end
 
-      subject { -> { cli.search } }
-      it { is_expected.not_to output.to_stdout }
+      context 'when default config file exists' do
+        let(:options) { { config: config_file_path } }
+        let(:config_file_exist) { true }
+
+        subject { -> { cli.search } }
+        it { is_expected.not_to output.to_stdout }
+      end
+
+      context 'when default config file does not exist' do
+        let(:options) { {} }
+        let(:config_file_exist) { false }
+
+        subject { -> { cli.search } }
+        it { is_expected.not_to output.to_stdout }
+      end
     end
 
     context 'given --exclude-word option' do

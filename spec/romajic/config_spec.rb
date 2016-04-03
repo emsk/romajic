@@ -54,6 +54,13 @@ describe Romajic::Config do
       subject { -> { config } }
       it { is_expected.to raise_error(Romajic::Error, /No such file or directory( @ rb_sysopen)? - #{config_file_path}/) }
     end
+
+    context 'given no config_file_path' do
+      let(:options) { {} }
+
+      subject { -> { config } }
+      it { is_expected.not_to raise_error }
+    end
   end
 
   describe '#target_words' do

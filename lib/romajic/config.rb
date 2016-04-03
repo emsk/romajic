@@ -23,7 +23,7 @@ module Romajic
     # @option options [String, Symbol] :converter Romaji converter
     def initialize(options)
       @options = Marshal.load(Marshal.dump(options))
-      set_configs_from_file
+      set_configs
       set_converter
       set_target_words
       set_exclude_words
@@ -51,9 +51,13 @@ module Romajic
 
     private
 
-    def set_configs_from_file
-      configs = YAML.load_file(@options[:config])
-      @configs = Hash[configs.map { |k, v| [k.to_sym, v] }]
+    def set_configs
+      if @options[:config].nil?
+        @configs = {}
+      else
+        configs = YAML.load_file(@options[:config])
+        @configs = Hash[configs.map { |k, v| [k.to_sym, v] }]
+      end
     rescue Errno::ENOENT => e
       raise Romajic::Error, e.message
     end
