@@ -59,8 +59,8 @@ sushiya -> sushi @ /usr/local/src/example.txt:2
 | Option | Description | Default |
 | :----- | :---------- | :------ |
 | `-e/--exclude-word` | Word to exclude. | |
-| `-c/--config` | Path of configuration file. | `.romajic.yml` in current directory |
-| `-d/--dir` | Path of target directory. | Current directory |
+| `-c/--config` | Path of configuration file. | `.romajic.yml` in the working directory |
+| `-d/--dir` | Path of target directory. | The working directory |
 | `-E/--extensions` | Comma-separated target extensions. | All extensions |
 | `-D/--distance` | Levenshtein distance. | `3` |
 | `-C/--converter` | Romaji converter, such as `hepburn`, `modified_hepburn`, `traditional_hepburn`, `nihon`, or `kunrei`. | `hepburn` |
