@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Romajic::CLI do
   let(:cli) { described_class.new }
 
