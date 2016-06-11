@@ -38,7 +38,7 @@ $ gem install romajic
 
 ## Usage
 
-Give hiragana text:
+Search by hiragana text:
 
 ```sh
 $ romajic search すし
@@ -46,7 +46,7 @@ SUSI -> sushi @ /usr/local/src/Example.java:5
 sushiya -> sushi @ /usr/local/src/example.txt:2
 ```
 
-Give romaji text:
+Search by romaji text:
 
 ```sh
 $ romajic search sushi
