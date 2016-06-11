@@ -1,11 +1,22 @@
 require 'thor'
 require 'romajic/cop'
+require 'romajic/initializer'
 
 # Automatic romaji spelling checker
 module Romajic
 
   # Command-line interface of {Romajic}
   class CLI < Thor
+    default_task :execute
+
+    desc 'execute', 'Generate a configuration file'
+    option :init, type: :boolean
+
+    # Generate a configuration file
+    def execute
+      Initializer.copy_template if options[:init]
+    end
+
     desc 'search WORD', 'Search romaji'
     option :exclude_word, type: :string, aliases: '-e', banner: 'WORD TO EXCLUDE'
     option :config, type: :string, aliases: '-c', banner: 'PATH OF THE CONFIGURATION FILE'

@@ -54,6 +54,12 @@ SUSI -> sushi @ /usr/local/src/Example.java:5
 sushiya -> sushi @ /usr/local/src/example.txt:2
 ```
 
+Generate a configuration file:
+
+```sh
+$ romajic --init
+```
+
 ## Command Options
 
 | Option | Description | Default |
@@ -64,6 +70,19 @@ sushiya -> sushi @ /usr/local/src/example.txt:2
 | `-E/--extensions` | Comma-separated target extensions. | All extensions |
 | `-D/--distance` | Levenshtein distance. | `3` |
 | `-C/--converter` | Romaji converter, such as `hepburn`, `modified_hepburn`, `traditional_hepburn`, `nihon`, or `kunrei`. | `hepburn` |
+
+## Configurations
+
+The keys below are available in the configuration file.
+
+| Key | Description | Type |
+| :-- | :---------- | :--- |
+| `target_words` | Target romaji. | Array |
+| `exclude_words` | Words to exclude. | Array |
+| `root_dir` | Path of target directory. | String |
+| `extensions` | Target extensions. | Array |
+| `distance` | Levenshtein distance. | Integer |
+| `converter` | Romaji converter. | String |
 
 ## Documentation
 

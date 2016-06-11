@@ -1,6 +1,26 @@
 describe Romajic::CLI do
   let(:cli) { described_class.new }
 
+  describe '#execute' do
+    context 'given no options' do
+      before do
+        expect(Romajic::Initializer).not_to receive(:copy_template)
+      end
+
+      subject { -> { cli.execute } }
+      it { is_expected.not_to output.to_stdout }
+    end
+
+    context 'given --init option' do
+      before do
+        expect(Romajic::Initializer).to receive(:copy_template)
+      end
+
+      subject { -> { cli.invoke(:execute, [], init: true) } }
+      it { is_expected.not_to output.to_stdout }
+    end
+  end
+
   describe '#search' do
     let(:cop_mock) { instance_double('cop', search: nil) }
 
