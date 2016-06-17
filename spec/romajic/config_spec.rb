@@ -8,14 +8,14 @@ describe Romajic::Config do
   let(:target_words) { %w(ikkonzome matcha) }
   let(:exclude_words) { %w(class const) }
   let(:distance) { 2 }
-  let(:root_dir) { '/path/to/dir' }
+  let(:dir) { '/path/to/dir' }
   let(:extensions) { %w(rb java) }
   let(:converter) { 'hepburn' }
   let(:config_hash) do
     {
       'target_words'  => target_words,
       'exclude_words' => exclude_words,
-      'root_dir'      => root_dir,
+      'dir'           => dir,
       'extensions'    => extensions,
       'distance'      => distance,
       'converter'     => converter
@@ -227,13 +227,13 @@ describe Romajic::Config do
     subject { config.target_file_pattern }
 
     context 'when options[:dir] is nil' do
-      context "when configs['root_dir'] is not nil" do
+      context "when configs['dir'] is not nil" do
         context "when configs['extensions'] is nil" do
           let(:extensions) { nil }
           let(:expanded_path) { '/path/to/expand/dir' }
 
           before do
-            expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+            expect(File).to receive(:expand_path).with(dir, config_dir_path).and_return(expanded_path)
           end
 
           it { is_expected.to eq "#{expanded_path}/**/*" }
@@ -242,7 +242,7 @@ describe Romajic::Config do
     end
 
     context 'when options[:dir] is not nil' do
-      context "when configs['root_dir'] is not nil" do
+      context "when configs['dir'] is not nil" do
         context "when configs['extensions'] is nil" do
           let(:extensions) { nil }
           let(:expanded_path) { '/path/to/expand/dir' }
@@ -264,11 +264,11 @@ describe Romajic::Config do
     end
 
     context 'when options[:extensions] is nil' do
-      context "when configs['root_dir'] is not nil" do
+      context "when configs['dir'] is not nil" do
         let(:expanded_path) { '/path/to/expand/dir' }
 
         before do
-          expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+          expect(File).to receive(:expand_path).with(dir, config_dir_path).and_return(expanded_path)
         end
 
         context "when configs['extensions'] is not nil" do
@@ -282,9 +282,9 @@ describe Romajic::Config do
         end
       end
 
-      context "when configs['root_dir'] is nil" do
+      context "when configs['dir'] is nil" do
         context "when configs['extensions'] is not nil" do
-          let(:root_dir) { nil }
+          let(:dir) { nil }
           let(:expanded_path) { '/path/to/run/dir' }
 
           before do
@@ -308,7 +308,7 @@ describe Romajic::Config do
         end
 
         before do
-          expect(File).to receive(:expand_path).with(root_dir, config_dir_path).and_return(expanded_path)
+          expect(File).to receive(:expand_path).with(dir, config_dir_path).and_return(expanded_path)
         end
 
         it { is_expected.to eq "#{expanded_path}/**/*.{#{option_extensions}}" }

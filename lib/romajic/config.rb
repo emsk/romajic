@@ -27,7 +27,7 @@ module Romajic
       set_converter
       set_target_words
       set_exclude_words
-      set_root_dir
+      set_dir
       set_extensions
       set_distance
     end
@@ -36,7 +36,7 @@ module Romajic
     #
     # @return [String] Glob pattern
     def target_file_pattern
-      pattern = "#{@root_dir}/**/*"
+      pattern = "#{@dir}/**/*"
       pattern += ".{#{@extensions.join(',')}}" unless @extensions.nil?
       pattern
     end
@@ -102,13 +102,13 @@ module Romajic
       end
     end
 
-    def set_root_dir
+    def set_dir
       if @options[:dir]
-        @root_dir = File.expand_path(@options[:dir])
-      elsif @configs[:root_dir]
-        @root_dir = File.expand_path(@configs[:root_dir], File.dirname(@options[:config]))
+        @dir = File.expand_path(@options[:dir])
+      elsif @configs[:dir]
+        @dir = File.expand_path(@configs[:dir], File.dirname(@options[:config]))
       else
-        @root_dir = File.expand_path('.')
+        @dir = File.expand_path('.')
       end
     end
 

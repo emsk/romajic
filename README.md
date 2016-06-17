@@ -79,7 +79,7 @@ The keys below are available in the configuration file.
 | :-- | :---------- | :--- |
 | `target_words` | Target romaji. | Array |
 | `exclude_words` | Words to exclude. | Array |
-| `root_dir` | Path of target directory. | String |
+| `dir` | Path of target directory. | String |
 | `extensions` | Target extensions. | Array |
 | `distance` | Levenshtein distance. | Integer |
 | `converter` | Romaji converter. | String |
