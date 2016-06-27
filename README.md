@@ -103,6 +103,10 @@ http://www.rubydoc.info/gems/romajic
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
+## Related
+
+* [romajify](https://github.com/emsk/romajify) - Japanese romanization library for Ruby
+
 ## License
 
 [MIT](LICENSE.txt)
