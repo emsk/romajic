@@ -58,6 +58,4 @@ module Romajic
       puts "romajic #{Romajic::VERSION}"
     end
   end
-
-  CLI.start
 end

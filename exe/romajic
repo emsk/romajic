@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require 'romajic'
+
+Romajic::CLI.start
