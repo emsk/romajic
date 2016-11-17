@@ -1,6 +1,13 @@
 AllCops:
   DisplayCopNames: true
 
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - '*.gemspec'
+
 Metrics/LineLength:
   Enabled: false
 
