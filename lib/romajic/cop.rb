@@ -6,6 +6,7 @@ module Romajic
 
   # Search logic class of {Romajic}
   class Cop
+    EXTENSION_TXT = :txt
     TARGET_KINDS = CodeRay::TokenKinds.keys.freeze
 
     # Initialize a new Cop object
@@ -27,15 +28,9 @@ module Romajic
       Dir.glob(@config.target_file_pattern, File::FNM_CASEFOLD).each do |file_path|
         next if FileTest.directory?(file_path)
 
-        extension = File.extname(file_path).sub(/^./, '').downcase
-
-        if extension.empty?
-          tokens = CodeRay.scan(File.read(file_path), :txt).tokens
-          search_in_plain_text(tokens, file_path)
-        else
-          tokens = CodeRay.scan(File.read(file_path), extension.to_sym).tokens
-          search_in_tokens(tokens, file_path)
-        end
+        extension = get_extension(file_path)
+        tokens = get_tokens(file_path, extension)
+        search_romaji(extension, tokens, file_path)
       end
 
       nil
@@ -43,16 +38,31 @@ module Romajic
 
     private
 
+    def get_extension(file_path)
+      extension = File.extname(file_path).sub(/^./, '').downcase
+      extension.empty? ? EXTENSION_TXT : extension.to_sym
+    end
+
+    def get_tokens(file_path, extension)
+      CodeRay.scan(File.read(file_path), extension).tokens
+    end
+
+    def search_romaji(extension, tokens, file_path)
+      if extension == EXTENSION_TXT
+        search_in_plain_text(tokens, file_path)
+      else
+        search_in_tokens(tokens, file_path)
+      end
+    end
+
     def search_in_tokens(tokens, file_path)
       line_number = 1
 
       tokens.each_slice(2) do |token|
         text = token[0]
-        kind = token[1]
         line_number += text.count("\n") if text.is_a?(String)
 
-        next unless target_kind?(kind.to_sym)
-        next if @config.exclude_word?(text.to_s)
+        next unless target_token?(token)
 
         current_word = strip_text(text.to_s)
 
@@ -76,6 +86,12 @@ module Romajic
           search_in_words(current_word, file_path, line_number)
         end
       end
+    end
+
+    def target_token?(token)
+      text = token[0]
+      kind = token[1]
+      target_kind?(kind.to_sym) && !@config.exclude_word?(text.to_s)
     end
 
     def target_kind?(kind)
