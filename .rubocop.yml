@@ -1,6 +1,10 @@
 AllCops:
   DisplayCopNames: true
 
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/romajic/cli.rb'
+
 Metrics/BlockLength:
   Exclude:
     - 'Rakefile'
@@ -8,8 +12,20 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - '*.gemspec'
 
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lib/romajic/cli.rb'
+
 Metrics/LineLength:
   Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/romajic/cli.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'lib/romajic/cli.rb'
 
 Style/ConditionalAssignment:
   Enabled: false
