@@ -109,7 +109,7 @@ module Romajic
       @config.target_words.each do |target_word|
         target_word.downcase!
         next unless similar?(target_word, current_word.downcase)
-        puts "#{current_word} -> #{target_word} @ #{file_path}:#{line}"
+        puts "#{Rainbow(current_word).yellow} -> #{Rainbow(target_word).green} @ #{file_path}:#{line}"
       end
     end
 
