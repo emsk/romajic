@@ -1,6 +1,9 @@
 AllCops:
   DisplayCopNames: true
 
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - 'lib/romajic/cli.rb'
@@ -28,9 +31,6 @@ Metrics/PerceivedComplexity:
     - 'lib/romajic/cli.rb'
 
 Style/ConditionalAssignment:
-  Enabled: false
-
-Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
 Style/MutableConstant:
