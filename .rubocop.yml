@@ -44,3 +44,7 @@ Style/RegexpLiteral:
 
 Style/UnneededPercentQ:
   Enabled: false
+
+Style/YodaCondition:
+  Exclude:
+    - 'lib/romajic/cop.rb'
