@@ -1,5 +1,3 @@
-# coding: utf-8
-
 describe Romajic::Config do
   let(:config_dir_path) { '/path/to' }
   let(:config_file_path) { "#{config_dir_path}/config.yml" }
