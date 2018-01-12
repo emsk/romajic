@@ -95,6 +95,7 @@ http://www.rubydoc.info/gems/romajic
 * Ruby 2.2
 * Ruby 2.3
 * Ruby 2.4
+* Ruby 2.5
 
 ## Contributing
 
