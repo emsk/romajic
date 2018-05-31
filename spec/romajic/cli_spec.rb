@@ -45,10 +45,11 @@ describe Romajic::CLI do
 
     context 'given no options' do
       let(:config_file_path) { '/path/to/.romajic.yml' }
+      let(:expanded_config_file_path) { File.expand_path(config_file_path) }
 
       before do
-        expect(File).to receive(:expand_path).with('.romajic.yml').and_return(config_file_path)
-        expect(FileTest).to receive(:exist?).with(config_file_path).and_return(config_file_exist)
+        expect(File).to receive(:expand_path).with('.romajic.yml').and_return(expanded_config_file_path)
+        expect(FileTest).to receive(:exist?).with(expanded_config_file_path).and_return(config_file_exist)
       end
 
       context 'when default config file exists' do
