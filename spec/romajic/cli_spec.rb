@@ -25,7 +25,9 @@ describe Romajic::CLI do
     let(:cop_mock) { instance_double('cop', search: nil) }
 
     before do
-      expect(Romajic::Cop).to receive(:new).with(options).and_return(cop_mock)
+      cop_options = options.dup
+      cop_options[:config] = File.expand_path(options[:config]) if options[:config]
+      expect(Romajic::Cop).to receive(:new).with(cop_options).and_return(cop_mock)
     end
 
     context 'given word' do
