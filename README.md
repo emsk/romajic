@@ -4,6 +4,7 @@
 [![Build Status](https://github.com/emsk/romajic/workflows/build/badge.svg)](https://github.com/emsk/romajic/actions?query=workflow%3Abuild)
 [![Build Status](https://travis-ci.org/emsk/romajic.svg?branch=main)](https://travis-ci.org/emsk/romajic)
 [![Build status](https://ci.appveyor.com/api/projects/status/hmralky8g9v146qq?svg=true)](https://ci.appveyor.com/project/emsk/romajic)
+[![Build Status](https://dev.azure.com/emsk/romajic/_apis/build/status/emsk.romajic?branchName=main)](https://dev.azure.com/emsk/romajic/_build/latest?definitionId=4&branchName=main)
 [![Codecov](https://codecov.io/gh/emsk/romajic/branch/main/graph/badge.svg)](https://codecov.io/gh/emsk/romajic)
 [![Code Climate](https://codeclimate.com/github/emsk/romajic/badges/gpa.svg)](https://codeclimate.com/github/emsk/romajic)
 [![Inline docs](http://inch-ci.org/github/emsk/romajic.svg?branch=main)](http://inch-ci.org/github/emsk/romajic)
