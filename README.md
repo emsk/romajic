@@ -1,7 +1,7 @@
 # Romajic
 
 [![Gem Version](https://badge.fury.io/rb/romajic.svg)](https://badge.fury.io/rb/romajic)
-[![Build Status](https://github.com/emsk/romajic/workflows/build/badge.svg)](https://github.com/emsk/romajic/actions?query=workflow%3Abuild)
+[![Build Status](https://github.com/emsk/romajic/actions/workflows/build.yml/badge.svg)](https://github.com/emsk/romajic/actions/workflows/build.yml)
 [![Build Status](https://travis-ci.org/emsk/romajic.svg?branch=main)](https://travis-ci.org/emsk/romajic)
 [![Build status](https://ci.appveyor.com/api/projects/status/hmralky8g9v146qq?svg=true)](https://ci.appveyor.com/project/emsk/romajic)
 [![Build Status](https://dev.azure.com/emsk/romajic/_apis/build/status/emsk.romajic?branchName=main)](https://dev.azure.com/emsk/romajic/_build/latest?definitionId=4&branchName=main)
